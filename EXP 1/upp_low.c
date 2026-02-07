@@ -16,4 +16,4 @@ int main(){
     printf("Lowercase string: %s", str);
 
     return 0;
-}
+}   
