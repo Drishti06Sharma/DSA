@@ -1,105 +1,165 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Node structure */
+/* -----------------------------
+   Structure of a Node
+   Each node contains:
+   1. data  -> stores value
+   2. next  -> pointer to next node
+--------------------------------*/
 struct Node {
     int data;
     struct Node *next;
 };
 
-/* Head pointer */
+/* Head pointer (start of linked list) */
 struct Node *head = NULL;
 
-/* Insert at beginning */
+
+/* -----------------------------
+   Insert a node at beginning
+--------------------------------*/
 void insertBeg(int value) {
+
+    // Create a new node
     struct Node *newNode = malloc(sizeof(struct Node));
+
+    // Store data in new node
     newNode->data = value;
+
+    // Make new node point to current head
     newNode->next = head;
+
+    // Move head to new node
     head = newNode;
 }
 
-/* Insert at end */
-void insertEnd(int value) {
-    struct Node *newNode = malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = NULL;
 
+/* -----------------------------
+   Insert a node at end
+--------------------------------*/
+void insertEnd(int value) {
+
+    // Create new node
+    struct Node *newNode = malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;   // Last node always points to NULL
+
+    // If list is empty
     if (head == NULL) {
         head = newNode;
         return;
     }
 
+    // Traverse to last node
     struct Node *temp = head;
     while (temp->next != NULL) {
         temp = temp->next;
     }
+
+    // Attach new node at end
     temp->next = newNode;
 }
 
-/* Delete from beginning */
+
+/* -----------------------------
+   Delete node from beginning
+--------------------------------*/
 void deleteBeg() {
+
+    // Check if list is empty
     if (head == NULL) {
         printf("List is empty\n");
         return;
     }
 
+    // Store current head in temp
     struct Node *temp = head;
+
+    // Move head to next node
     head = head->next;
+
+    // Free old first node
     free(temp);
 }
 
-/* Delete from end */
+
+/* -----------------------------
+   Delete node from end
+--------------------------------*/
 void deleteEnd() {
+
+    // If list is empty
     if (head == NULL) {
         printf("List is empty\n");
         return;
     }
 
+    // If only one node exists
     if (head->next == NULL) {
         free(head);
         head = NULL;
         return;
     }
 
+    // Traverse to second last node
     struct Node *temp = head;
     while (temp->next->next != NULL) {
         temp = temp->next;
     }
 
+    // Delete last node
     free(temp->next);
+
+    // Make second last node point to NULL
     temp->next = NULL;
 }
 
-/* Display the list */
+
+/* -----------------------------
+   Display linked list
+--------------------------------*/
 void display() {
+
     struct Node *temp = head;
 
+    // If list is empty
     if (temp == NULL) {
         printf("List is empty\n");
         return;
     }
 
+    // Traverse and print each node
     while (temp != NULL) {
         printf("%d -> ", temp->data);
         temp = temp->next;
     }
+
     printf("NULL\n");
 }
 
-/* Main function */
+
+/* -----------------------------
+   Main Function
+--------------------------------*/
 int main() {
-    insertBeg(10);
-    insertBeg(20);
-    insertEnd(30);
+
+    // Insert elements
+    insertBeg(10);   // List: 10
+    insertBeg(20);   // List: 20 -> 10
+    insertEnd(30);   // List: 20 -> 10 -> 30
 
     printf("Linked List:\n");
     display();
 
-    deleteBeg();
+    // Delete from beginning
+    deleteBeg();     // Removes 20
     printf("After deleting from beginning:\n");
     display();
 
-    deleteEnd();
+    // Delete from end
+    deleteEnd();     // Removes 30
     printf("After deleting from end:\n");
     display();
 
