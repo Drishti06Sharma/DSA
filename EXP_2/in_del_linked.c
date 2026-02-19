@@ -1,24 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* -----------------------------
-   Structure of a Node
-   Each node contains:
-   1. data  -> stores value
-   2. next  -> pointer to next node
---------------------------------*/
 struct Node {
     int data;
     struct Node *next;
 };
 
-/* Head pointer (start of linked list) */
 struct Node *head = NULL;
 
-
-/* -----------------------------
-   Insert a node at beginning
---------------------------------*/
 void insertBeg(int value) {
 
     // Create a new node
@@ -34,10 +23,6 @@ void insertBeg(int value) {
     head = newNode;
 }
 
-
-/* -----------------------------
-   Insert a node at end
---------------------------------*/
 void insertEnd(int value) {
 
     // Create new node
@@ -62,10 +47,6 @@ void insertEnd(int value) {
     temp->next = newNode;
 }
 
-
-/* -----------------------------
-   Delete node from beginning
---------------------------------*/
 void deleteBeg() {
 
     // Check if list is empty
@@ -84,10 +65,6 @@ void deleteBeg() {
     free(temp);
 }
 
-
-/* -----------------------------
-   Delete node from end
---------------------------------*/
 void deleteEnd() {
 
     // If list is empty
@@ -116,10 +93,6 @@ void deleteEnd() {
     temp->next = NULL;
 }
 
-
-/* -----------------------------
-   Display linked list
---------------------------------*/
 void display() {
 
     struct Node *temp = head;
@@ -139,10 +112,6 @@ void display() {
     printf("NULL\n");
 }
 
-
-/* -----------------------------
-   Main Function
---------------------------------*/
 int main() {
 
     // Insert elements
